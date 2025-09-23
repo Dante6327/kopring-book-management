@@ -38,3 +38,7 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+### properties ###
+application-dev.properties
+application-*.properties

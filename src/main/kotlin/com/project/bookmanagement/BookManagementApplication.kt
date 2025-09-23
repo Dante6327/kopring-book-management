@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ReadingManagementApplication
+class BookManagementApplication
 
 fun main(args: Array<String>) {
-    runApplication<ReadingManagementApplication>(*args)
+    runApplication<BookManagementApplication>(*args)
 }

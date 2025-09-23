@@ -1,19 +1,15 @@
+package com.project.bookmanagement.exception
+
 import com.project.bookmanagement.dto.ApiResponse
 import com.project.bookmanagement.dto.ResponseUtil
-import com.project.bookmanagement.exception.BookNotFoundException
-import com.project.bookmanagement.exception.BusinessException
-import com.project.bookmanagement.exception.DuplicateIsbnException
-import com.project.bookmanagement.exception.InvalidBookDataException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Component
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 // exception/GlobalExceptionHandler.kt
 @RestControllerAdvice
-@Component
 class GlobalExceptionHandler {
     // 도서를 찾을 수 없음
     @ExceptionHandler(BookNotFoundException::class)
@@ -25,7 +21,6 @@ class GlobalExceptionHandler {
     // ISBN 중복
     @ExceptionHandler(DuplicateIsbnException::class)
     fun handleDuplicateIsbnException(ex: DuplicateIsbnException): ResponseEntity<ApiResponse<Unit>> {
-        println("13212312312312312312312 $ex.message")
         return ResponseEntity.status(HttpStatus.CONFLICT)
             .body(ResponseUtil.error(ex.message ?: "중복된 ISBN입니다."))
     }
@@ -35,6 +30,30 @@ class GlobalExceptionHandler {
     fun handleInvalidBookDataException(ex: InvalidBookDataException): ResponseEntity<ApiResponse<Unit>> {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(ResponseUtil.error(ex.message ?: "잘못된 도서 정보입니다."))
+    }
+
+    @ExceptionHandler(UserNotFoundException::class)
+    fun handleUserNotFoundException(ex: UserNotFoundException): ResponseEntity<ApiResponse<Unit>> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(ResponseUtil.error(ex.message ?: "사용자를 찾을 수 없습니다."))
+    }
+
+    @ExceptionHandler(DuplicateEmailException::class)
+    fun handleDuplicateEmailException(ex: DuplicateEmailException): ResponseEntity<ApiResponse<Unit>> {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(ResponseUtil.error(ex.message ?: "중복된 이메일입니다."))
+    }
+
+    @ExceptionHandler(DuplicateNicknameException::class)
+    fun handleDuplicateNicknameException(ex: DuplicateNicknameException): ResponseEntity<ApiResponse<Unit>> {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(ResponseUtil.error(ex.message ?: "중복된 닉네임입니다."))
+    }
+
+    @ExceptionHandler(InvalidPasswordException::class)
+    fun handleInvalidPasswordException(ex: InvalidPasswordException): ResponseEntity<ApiResponse<Unit>> {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body(ResponseUtil.error(ex.message ?: "비밀번호가 올바르지 않습니다."))
     }
 
     // 비즈니스 예외 (상위 클래스)
