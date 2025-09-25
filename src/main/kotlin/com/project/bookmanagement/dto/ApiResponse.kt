@@ -14,6 +14,10 @@ object ResponseUtil {
         return ApiResponse(success = true, data = data, message = message)
     }
 
+    fun <T> success(message: String): ApiResponse<T> {
+        return ApiResponse(success = true, data = null, message = message)
+    }
+
     fun <T> error(message: String): ApiResponse<T> {
         return ApiResponse(success = false, message = message)
     }

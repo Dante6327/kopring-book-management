@@ -25,7 +25,6 @@ class BookController(
     // 도서 등록
     @PostMapping
     fun createBook(@Valid @RequestBody bookRequest: BookRequest): ResponseEntity<ApiResponse<Book>> {
-        println(bookRequest)
         val createdBook = bookService.createBook(bookRequest)
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseUtil.success(createdBook, message = "도서가 성공적으로 등록되었습니다."))
     }

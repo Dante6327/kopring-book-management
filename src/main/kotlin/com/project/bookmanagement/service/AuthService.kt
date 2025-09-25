@@ -96,4 +96,12 @@ class AuthService (
             role = user.role.name
         )
     }
+
+    fun validateToken(token: String): Boolean {
+        return try {
+            jwtToken.isValidToken(token)
+        } catch (e: Exception) {
+            false
+        }
+    }
 }
